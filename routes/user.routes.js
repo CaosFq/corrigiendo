@@ -1,8 +1,8 @@
 const {Router}= require('express');
 const{check}=require('express-validator');
-const { signup, login } = require('../controllers/user.controller');
-const { validUserByEmail, validPassword } = require('../middlewares/user.middleware');
-const { signupValidations, validateFields, loginValidation } = require('../middlewares/validations.middleware');
+const { signup, login, updateUser } = require('../controllers/user.controller');
+const { validUserByEmail, validPassword, validUser } = require('../middlewares/user.middleware');
+const { signupValidations, validateFields, loginValidation, updateUserValidation } = require('../middlewares/validations.middleware');
 
 const router =Router();
 
@@ -19,7 +19,17 @@ validPassword,
 login
 );
 
+router.use(protect);
+router.patch(
+    '/id:',
+    updateUserValidation,
+    validateFields, 
+    validUser,
+    protectAccountOwner, 
+    updateUser);
+  
+  module.exports = {
+    user : router,
+  };
 
-module.exports = {
-    userRouter: router,
-};
+

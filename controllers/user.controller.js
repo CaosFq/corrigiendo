@@ -37,3 +37,16 @@ exports.signup = catchAsync (async(req, res, next)=>{
       },
     });
   });
+
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const { user } = req;
+  const { name, email } = req.body;
+
+  await user.update({ name, email });
+
+  res.status(200).json({
+    status: 'sucess',
+    message: 'The user has been updated',
+  });
+});

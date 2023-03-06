@@ -76,3 +76,19 @@ exports.protect = catchAsync(async(req, res, next) =>{
     };
       
  
+    exports.validUser = catchAsync(async(req,res,next)=>{
+        const{id} =req.params;
+        
+        const user = await User.findOne({
+            where:{
+                id,
+                status: true,
+            },
+        });
+              if(!user){
+                return next(new AppError('User not found', 404));
+        
+              }
+              req.user= user;
+              next();
+            });

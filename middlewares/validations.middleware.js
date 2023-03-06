@@ -22,7 +22,12 @@ exports.loginValidation = [
     check('email', 'the email is required').not().isEmpty(),
     check('email', 'the email must have a correct format').not().isEmail(),
     check('email', 'the password is requerid').not().isEmpty(),
-]
+];
 
+exports.updateUserValidation = [
+    check('name', 'the name is required').not().isEmpty(),
+    check('email', 'the email must have a correct format').isEmail(),
+    check('email', 'the email is required').not().isEmpty(),
 
+];s
 
