@@ -29,5 +29,5 @@ exports.updateUserValidation = [
     check('email', 'the email must have a correct format').isEmail(),
     check('email', 'the email is required').not().isEmpty(),
 
-];s
+];
 
