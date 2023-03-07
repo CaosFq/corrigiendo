@@ -1,4 +1,4 @@
-const User = require('../models/user.model');
+const User = require('../models/user.model')
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const bcrypt = require('bcryptjs');
@@ -57,6 +57,23 @@ exports.protect = catchAsync(async (req, res, next) =>{
             status: true,
         }
     });
+
+    if (user.passwordChangeAt) {
+        const changedTimeStamp = parseInt(
+            user.passwordChangeAt.getTime() / 1000,
+            10
+        );
+
+        if (decoded.iat < changedTimeStamp) {
+            return next(new AppError('User rently change password!, plece login again.', 401))
+        }
+    }
+
+
+
+    req.sessionUser = user
+
+    next()
 });
     
  exports.protectAccountOwner = catchAsync(async (req, res, next) =>{

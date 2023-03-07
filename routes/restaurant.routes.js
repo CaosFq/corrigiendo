@@ -10,11 +10,11 @@ const { createRestaurantValidation, validateFields, createReviewValidation } = r
 
 const router = Router();
 
-
+router.get('/', findRestaurants);
 router.use(protect);
 router.post('/', createRestaurantValidation,validateFields, createRestaurant);
 
-router.get('/', findRestaurants);
+
 
 router.post(
     '/reviews/:id',
