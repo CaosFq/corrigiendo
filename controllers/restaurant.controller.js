@@ -1,6 +1,6 @@
 const catchAsync = require('../utils/catchAsync');
 const Restaurant = require('../models/restaurant.model');
-const REview = require('../models/reviews.model');
+const Review = require('../models/reviews.model');
 
 
 exports.createRestaurant = catchAsync(async(req, res, next) =>{
@@ -44,7 +44,11 @@ const review = await Review.create({
 
 res.status(201).json({
 
-})
+});
+res.status(201).json({
+    status:'success',
+    review,
+});
 });
     
 exports.updateReview = catchAsync(async(req, res, next)=>{
@@ -59,4 +63,17 @@ exports.updateReview = catchAsync(async(req, res, next)=>{
         status: 'success',
         message: ' The review has been updated',
     });
+    exports.updateReview = catchAsync(async(req, res, next)=>{
+
+    const {restaurant, review}=req;
+    const{comment, rating}= req.body;
+    await review.update({
+        comment,
+        rating
+    });
+    res.status(200).json({
+        status:'success',
+        message: 'The review has been updated',
+    })
+    });      
 });

@@ -5,8 +5,8 @@ const generateJWT = (id) => {
         const paylod = { id };
 
         jwt.sign(
-            paylod,
-            process.env.SECRETE_JWT_SEED,
+            payload,
+            process.env.SECRET_JWT_SEED,
             {
                 expiresIn: process.env.JWT_EXPIRE_IN
             },
